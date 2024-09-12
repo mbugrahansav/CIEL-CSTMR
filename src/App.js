@@ -1,25 +1,35 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import Header from './components/Header';
+import BottomTabNavigator from './components/BottomTabNavigator';
+import Story from './components/Story';
+import HomeView from './views/HomeView';
+import MenuView from './views/MenuView';
+import SettingsView from './views/SettingsView';
+import QRView from './views/QRView';
+
+function AppContent() {
+  const location = useLocation();
+  return (
+    <>
+      {location.pathname !== '/story' && <Header />}
+      <Routes>
+        <Route path="/" element={<HomeView />} />
+        <Route path="/menu" element={<MenuView />} /> 
+        <Route path="/settings" element={<SettingsView />} />
+        <Route path="/story" element={<Story />} /> 
+        <Route path="/qr" element={<QRView />} />
+      </Routes>
+      {location.pathname !== '/story' && <BottomTabNavigator />}
+    </>
+  );
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <AppContent />
+    </Router>
   );
 }
 

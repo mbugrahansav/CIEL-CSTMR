@@ -1,0 +1,50 @@
+.Home-Container {
+  background-color: #131314;
+}
+
+.Story-Box {
+  border-top: solid 2px #323235;
+  box-sizing: border-box;
+  height: 10vh;
+  display: flex;
+}
+
+.Story {
+  border: solid red;
+  width: 7vh;
+  height: 7vh;
+  border-radius: 100%;
+}
+
+#Story-Button-1, #Story-Button-2, #Story-Button-3 {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 100%;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.Loyalty-Box {
+  border-top: solid 2px #323235;
+  box-sizing: border-box;
+  height: 25vh;
+  color: white;
+}
+
+#ciel-cup-icon, #ciel-cup-icon-fill {
+  width: 7vh;
+}
+
+.Circular-Progress-Bar {
+  width: 10vh;
+}
+
+.Coffee-Details-Box {
+  border-top: solid 2px #323235;
+  box-sizing: border-box;
+  height: 47vh;
+  color: white;
+}
+
+
