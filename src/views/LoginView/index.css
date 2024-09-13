@@ -1,5 +1,119 @@
-.Login-Container {
-  background-color: #131314;
-  color: white;
+/* LoginView.css */
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+  background-color: #131314; /* Arka plan rengi */
+}
+
+.login-container {
   height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+  background-color: #131314; /* Arka plan rengi */
+}
+
+.login-box {
+  background-color: #2c2c2c;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  position: relative;
+}
+
+/* Animasyon tanımlaması */
+@keyframes flip {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(360deg); }
+}
+
+/* Logo stiline animasyonu ekleyeceğiz */
+.login-logo {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: #131314;
+  padding: 10px;
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid #ffff; /* Çerçeve rengi */
+  perspective: 1000px; /* 3D dönüşüm için */
+}
+
+.login-logo img {
+  width: 100%;
+  height: auto;
+  transition: transform 1s;
+}
+
+/* Dönüş animasyonunu CSS sınıfı ile ekleyeceğiz */
+.flip-animation {
+  transform: rotateY(360deg);
+}
+
+
+.login-box h2 {
+  color: #ffff;
+  margin-top: 50px;
+  font-size: 24px;
+}
+
+.login-input {
+  width: 95%;
+  padding: 12px 6px;
+  margin-bottom: 15px;
+  border: none;
+  background-color: #232324; /* Form arka plan rengi ile uyumlu */
+  color: #ffff;
+  font-size: 16px;
+  border-radius: 4px; /* Köşeleri yuvarlak yapabilirsiniz */
+}
+
+.login-input:focus {
+  outline: none;
+  border: 1px solid #666;
+  background-color: #2c2c2c; /* Odaklanıldığında biraz daha açık bir arka plan rengi */
+}
+
+
+.forgot-password {
+  text-align: right;
+  font-size: 12px;
+  color: #3498db;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.login-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #3498db; /* Yeni buton rengi */
+  border: none;
+  border-radius: 4px;
+  color: #fff; /* Buton üzerindeki yazı rengi */
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #2980b9; /* Hover rengi */
+}
+
+
+.error-message {
+  color: #e74c3c;
+  margin-top: 10px;
 }
