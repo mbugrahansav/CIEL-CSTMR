@@ -36,13 +36,11 @@ function Index() {
       <div className='Tab-Nav-Home-Button-Box'>
         <div className={`flip-container ${isHomePage ? 'flip' : ''}`}>
           <div className='flipper'>
-            {/* Ön Yüz (Home İcon) */}
             <div className='front'>
               <button id='Button-2' onClick={goToHomePage}>
                 <img src={homeIcon} id='home-icon' alt='home-icon'/>
               </button>
             </div>
-            {/* Arka Yüz (QR İcon) */}
             <div className='back'>
               <button id='Button-2' onClick={goToQrPage}>
                 <img src={qrIcon} id='qr-icon' alt='qr-icon'/>
