@@ -60,7 +60,7 @@ body {
 
 /* Dönüş animasyonunu CSS sınıfı ile ekleyeceğiz */
 .flip-animation {
-  transform: rotateY(360deg);
+  animation: flip 1s forwards;
 }
 
 
