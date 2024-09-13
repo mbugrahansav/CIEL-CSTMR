@@ -15,6 +15,13 @@ function LoginView({ setIsAuthenticated }) {
     e.preventDefault();
     setErrorMessage('');
 
+    // Admin kullanıcı adı ve şifresiyle giriş kontrolü
+    if (username === 'admin' && password === 'admin') {
+      setIsAuthenticated(true);
+      navigate('/');
+      return;
+    }
+
     try {
       const response = await axios.get('http://localhost:8080/users');
       const user = response.data.find(user => user.username === username && user.password === password);
