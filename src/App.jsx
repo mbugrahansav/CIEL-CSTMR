@@ -8,11 +8,16 @@ import MenuView from './views/MenuView';
 import SettingsView from './views/SettingsView';
 import QRView from './views/QRView';
 import LoginView from './views/LoginView';
-import { AuthContext } from './contexts/AuthContext'; // Context'i import edin
+import { AuthContext } from './contexts/AuthContext';
 
-// Protected Route Component
+
 function ProtectedRoute({ children }) {
-  const { isAuthenticated } = useContext(AuthContext); // Context'ten isAuthenticated'i alın
+  const { isAuthenticated } = useContext(AuthContext);
+
+  if (isAuthenticated === null) {
+    return <div>Loading...</div>;
+  }
+
   return isAuthenticated ? children : <Navigate to="/login" />;
 }
 

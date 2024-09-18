@@ -3,26 +3,29 @@ import React, { createContext, useState, useEffect } from 'react';
 const AuthContext = createContext();
 
 function AuthProvider({ children }) {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(null); 
 
   useEffect(() => {
-    // localStorage'dan 'isAuthenticated' değerini al ve boolean'a çevir
     const storedAuth = localStorage.getItem('isAuthenticated');
+    console.log('Stored Auth:', storedAuth);
+
     if (storedAuth === 'true') {
       setIsAuthenticated(true);
     } else {
       setIsAuthenticated(false);
     }
-  }, []); // Boş bağımlılık dizisi: sadece bileşen ilk yüklendiğinde çalışır
+  }, []);
 
   const login = () => {
     setIsAuthenticated(true);
     localStorage.setItem('isAuthenticated', 'true');
+    console.log('User logged in successfully');
   };
 
   const logout = () => {
     setIsAuthenticated(false);
     localStorage.setItem('isAuthenticated', 'false');
+    console.log('User logged out successfully');
   };
 
   return (
