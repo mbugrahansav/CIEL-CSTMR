@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './index.css';
+import { AuthContext } from '../../contexts/AuthContext';
 import axios from 'axios';
-import logo from './ciel-logo.png'; // Logo importu
+import './index.css';
+import logo from './ciel-logo(r-deleted).png';
 
-function LoginView({ setIsAuthenticated }) {
+function LoginView() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [isFlipped, setIsFlipped] = useState(false);
+  const { login } = useContext(AuthContext); // Context'ten login işlevini alın
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -17,7 +19,7 @@ function LoginView({ setIsAuthenticated }) {
 
     // Admin kullanıcı adı ve şifresiyle giriş kontrolü
     if (username === 'admin' && password === 'admin') {
-      setIsAuthenticated(true);
+      login();
       navigate('/');
       return;
     }
@@ -27,7 +29,7 @@ function LoginView({ setIsAuthenticated }) {
       const user = response.data.find(user => user.username === username && user.password === password);
 
       if (user) {
-        setIsAuthenticated(true);
+        login();
         navigate('/');
       } else {
         setErrorMessage('Geçersiz kullanıcı adı veya şifre!');
@@ -59,7 +61,6 @@ function LoginView({ setIsAuthenticated }) {
             onClick={handleUsernameClick} 
           />
         </div>
-        <h2>Login</h2>
         <form onSubmit={handleLogin}>
           <input
             type="text"
