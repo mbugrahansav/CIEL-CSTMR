@@ -8,16 +8,11 @@ import MenuView from './views/MenuView';
 import SettingsView from './views/SettingsView';
 import QRView from './views/QRView';
 import LoginView from './views/LoginView';
-import { AuthContext } from './contexts/AuthContext';
+import { AuthContext } from './contexts/AuthContext'; // Context'i import edin
 
 
 function ProtectedRoute({ children }) {
-  const { isAuthenticated } = useContext(AuthContext);
-
-  if (isAuthenticated === null) {
-    return <div>Loading...</div>;
-  }
-
+  const { isAuthenticated } = useContext(AuthContext); // Context'ten isAuthenticated'i alın
   return isAuthenticated ? children : <Navigate to="/login" />;
 }
 
@@ -26,10 +21,11 @@ function AppContent() {
   const { logout } = useContext(AuthContext);
 
   useEffect(() => {
+    // Eğer kullanıcı login sayfasına yönlendirilirse logout işlemini yap
     if (location.pathname === '/login') {
       logout();
     }
-  }, [location, logout]);
+  }, [location, logout]); // location değiştiğinde tetiklenecek
 
   return (
     <>
