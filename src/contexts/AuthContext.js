@@ -12,11 +12,11 @@ function AuthProvider({ children }) {
 
   useEffect(() => {
     // Geliştirme aşamasında her başlatmada localStorage'ı temizlemek için
-    // if (process.env.NODE_ENV === 'development') {
-    //   localStorage.removeItem('isAuthenticated');
-    //   localStorage.removeItem('isFirstVisit');
-    //   console.log('Development: isAuthenticated ve isFirstVisit temizlendi.');
-    // }
+    if (process.env.NODE_ENV === 'development') {
+      localStorage.removeItem('isAuthenticated');
+      localStorage.removeItem('isFirstVisit');
+      console.log('Development: isAuthenticated ve isFirstVisit temizlendi.');
+    }
     // Kullanıcının oturum durumu
     const storedAuth = localStorage.getItem('isAuthenticated');
     console.log('Stored Auth:', storedAuth);

@@ -2,8 +2,8 @@
 import React, { useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './index.css'; // Stil dosyası
-import coffeeImage from './coffee_image.jpg';
 import { AuthContext } from '../../contexts/AuthContext';
+import logo from './ciel-logo.png';
 
 function LandingPage() {
   const navigate = useNavigate();
@@ -27,22 +27,17 @@ function LandingPage() {
   };
 
   return (
-    <div className="landing-container">
-      <div className="landing-overlay"></div>
-      <div className="landing-content">
-        <h1 className="landing-title">Welcome to CoffeeApp</h1>
-        <p className="landing-description">Your daily coffee fix, crafted with love.</p>
-
-        <div className="campaign-box">
-          <p className="campaign-text">Buy 5 coffees, get the 6th one free! Join our <strong>5+1 campaign</strong> today and enjoy a free cup of coffee!</p>
-        </div>
-
-        <div className="button-group">
-          <button onClick={goToLogin} className="cta-button login-button">Login</button>
-          <button onClick={goToRegister} className="cta-button register-button">Register</button>
+    <div className="landing-page">
+      <div className="content">
+        <img src={logo} alt="Ciel Logo" className="logo" />
+        <h1>5 Kahve Alana 1 Bedava!</h1>
+        <p>Kampanyamızı kaçırma, hemen favori kahveni al!</p>
+        <div className="buttons">
+          <button onClick={goToLogin} className="btn">Login</button>
+          <button onClick={goToRegister} className="btn">Register</button>
         </div>
       </div>
-      <img src={coffeeImage} alt="Delicious coffee" className="background-image" />
+      {/* <img src={coffeeImage} alt="Delicious coffee" className="background-image" /> */}
     </div>
   );
 }

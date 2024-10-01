@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContext';
 import axios from 'axios';
 import './index.css';
-import logo from './ciel-logo(r-deleted).png';
+import logo from './ciel-logo.png';
 
 function LoginView() {
   const [username, setUsername] = useState('');
