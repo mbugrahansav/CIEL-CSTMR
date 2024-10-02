@@ -11,7 +11,7 @@ import LoginView from './views/LoginView';
 import { AuthContext } from './contexts/AuthContext';
 import LandingPage from './views/LandingPage';
 import RegisterView from './views/RegisterView';
-
+import ForgotView from './views/ForgotView';
 
 function ProtectedRoute({ children }) {
   const { isAuthenticated} = useContext(AuthContext);
@@ -48,10 +48,11 @@ function AppContent() {
 
   return (
     <>
-      {location.pathname !== '/story' && location.pathname !== '/login' && location.pathname !== '/landing'&& location.pathname !== '/login' && location.pathname !== '/register' && <Header />}
+      {location.pathname !== '/story' && location.pathname !== '/login' && location.pathname !== '/landing'&& location.pathname !== '/login' && location.pathname !== '/register' && location.pathname !== '/forgot' && <Header />}
       <Routes>
         <Route path="/landing" element={<LandingPage />} />
         <Route path="/login" element={<LoginView />} />
+        <Route path="/forgot" element={<ForgotView/>}/>
         <Route path="/register" element={<RegisterView />} />
         <Route path="/" element={
           <ProtectedRoute>
@@ -64,7 +65,7 @@ function AppContent() {
         <Route path="/qr" element={<ProtectedRoute><QRView /></ProtectedRoute>} />
         
       </Routes>
-      {location.pathname !== '/story' && location.pathname !== '/login'&& location.pathname !== '/login' && location.pathname !== '/register' && location.pathname !== '/landing' && <BottomTabNavigator />}
+      {location.pathname !== '/story' && location.pathname !== '/login'&& location.pathname !== '/login' && location.pathname !== '/register' && location.pathname !== '/landing'&& location.pathname !== '/forgot'  && <BottomTabNavigator />}
     </>
   );
 }

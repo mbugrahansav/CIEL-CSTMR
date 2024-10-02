@@ -51,6 +51,10 @@ function LoginView() {
     setTimeout(() => setIsFlipped(false), 1000); // Animasyon süresi
   };
 
+  const goToForgot = () => {
+    navigate('/forgot');
+  };
+
   return (
     <div className='login-container'>
       <div className='login-box'>
@@ -79,7 +83,7 @@ function LoginView() {
             className="login-input"
             onClick={handlePasswordClick}
           />
-          <div className="forgot-password">Forgot password?</div>
+          <div className="forgot-password" onClick={goToForgot}>Forgot password?</div>
           <button type="submit" className="login-button">
             Login
           </button>

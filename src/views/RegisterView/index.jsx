@@ -1,4 +1,3 @@
-// RegisterView/index.jsx
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContext';
@@ -8,24 +7,34 @@ import './index.css';
 function RegisterView() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [fullname, setFullname] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const { login } = useContext(AuthContext); // Context'ten login işlevini alın
+  const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
     setErrorMessage('');
 
-    try {
-      // Kullanıcıyı kaydetme işlemi (örnek olarak)
-      await axios.post('http://localhost:8080/users', { username, password });
+    // Basic validation
+    if (!username || !password) {
+      setErrorMessage('Kullanıcı adı ve şifre alanları boş bırakılamaz!');
+      return;
+    }
 
-      // Kayıt başarılı ise giriş yap ve ana sayfaya yönlendir
+    try {
+      await axios.post('http://localhost:8080/users', { username, password, fullname });
+
+      // Successful registration
       login();
       navigate('/');
     } catch (error) {
       console.error('Register hatası:', error);
-      setErrorMessage('Kayıt sırasında bir hata oluştu, lütfen tekrar deneyin!');
+      if (error.response) {
+        setErrorMessage(error.response.data.message || 'Kayıt sırasında bir hata oluştu, lütfen tekrar deneyin!');
+      } else {
+        setErrorMessage('Kayıt sırasında bir hata oluştu, lütfen tekrar deneyin!');
+      }
     }
   };
 
@@ -34,6 +43,13 @@ function RegisterView() {
       <div className='register-box'>
         <h2>Register</h2>
         <form onSubmit={handleRegister}>
+          <input
+            type="text"
+            placeholder="Full Name"
+            value={fullname}
+            onChange={(e) => setFullname(e.target.value)}
+            className="register-input"
+          />
           <input
             type="text"
             placeholder="Username"

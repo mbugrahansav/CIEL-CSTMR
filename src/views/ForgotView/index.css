@@ -1,43 +1,41 @@
-/* RegisterView/index.css */
-
-/* Genel Konteyner Stilleri */
-.register-container {
+/* Forgot Password Konteyner */
+.forgot-container {
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #131314;
+  background-color: #131314; /* LoginView ile uyumlu arka plan */
 }
 
-/* Kayıt Kutusu Stilleri */
-.register-box {
+/* Forgot Password Form Kutusu */
+.forgot-box {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 35vh;
-  /* LoginView ile aynı yükseklik */
-  width: 80vw;
-  /* LoginView ile aynı genişlik */
+  height: 35vh; /* LoginView ile aynı yükseklik */
+  width: 80vw; /* LoginView ile aynı genişlik */
   background-color: #2c2c2c;
   border-radius: 8px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
   padding: 25px;
 }
 
-.register-box h2 {
-  color: #fff;
-  margin-bottom: 15px;
-}
-
-.register-box form {
+/* Form Stili */
+.forgot-box form {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
 
-.register-input {
+.forgot-box h2 {
+  color: #fff;
+  margin-bottom: 15px;
+}
+
+/* Input Alanı */
+.forgot-box input {
   margin-top: 15px;
   height: 4vh;
   width: 100%;
@@ -48,18 +46,17 @@
   border-radius: 4px;
 }
 
-.register-input:focus {
+.forgot-box input:focus {
   outline: none;
   border: 1px solid #666;
   background-color: #2c2c2c;
 }
 
-/* Kayıt Butonu Stilleri */
-.register-button {
+/* Buton Stili */
+.forgot-box button {
   width: 100%;
   padding: 12px;
   background-color: #3498db;
-  /* Buton arka plan rengi */
   border: none;
   border-radius: 4px;
   color: #fff;
@@ -69,20 +66,20 @@
   transition: background-color 0.3s ease;
 }
 
-.register-button:hover {
-  background-color: #2980b9;
+.forgot-box button:hover {
+  background-color: #2980b9; 
 }
 
-/* Hata Mesajı Stilleri */
-.error-message {
+/* Label Stili */
+.forgot-box label {
+  color: #fff;
+  font-size: 16px;
+  margin-bottom: 5px;
+  /* margin-left: 25%; */
+}
+
+.message {
   color: #dc3545;
   margin-top: 10px;
   font-size: 14px;
-}
-
-/* Alternatif Giriş Yöntemi Stilleri (Opsiyonel) */
-.register-box .alternative-login {
-  margin-top: 20px;
-  font-size: 14px;
-  color: #666666;
 }
