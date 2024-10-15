@@ -37,6 +37,7 @@
   width: 100%;
 }
 
+/* Capitalize the first letter of each word in the name fields */
 .register-input {
   margin-top: 15px;
   height: 4vh;
@@ -52,6 +53,11 @@
   outline: none;
   border: 1px solid #666;
   background-color: #2c2c2c;
+}
+
+/* Capitalize the first letter of each word in name fields only */
+.name-input {
+  text-transform: capitalize;
 }
 
 /* Kayıt Butonu Stilleri */
@@ -86,3 +92,26 @@
   font-size: 14px;
   color: #666666;
 }
+
+/* Second Name Checkbox and Label */
+.second-name-container {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.second-name-container input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.second-name-label {
+  color: #fff;
+  font-size: 16px;
+}
+
+/* Dim the second name input when disabled */
+.register-input[disabled] {
+  background-color: #2c2c2c;
+  opacity: 0.5;
+}
+
