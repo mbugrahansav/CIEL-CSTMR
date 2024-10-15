@@ -23,6 +23,13 @@ function LoginView() {
     e.preventDefault();
     setErrorMessage('');
 
+    // Admin login logic
+    if (email === 'admin@admin' && password === 'admin') {
+      login(); // Assuming login context will handle user state
+      navigate('/');
+      return; // Stop further execution
+    }
+
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
@@ -30,7 +37,7 @@ function LoginView() {
       // Check if the email is verified
       if (user.emailVerified) {
         // If the email is verified, proceed with login
-        login(); // Assuming login context will handle user state
+        login(); // Call login context to handle user state
         navigate('/');
       } else {
         // If the email is not verified, log out the user and show a message
