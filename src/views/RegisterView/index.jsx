@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContext';
-import { createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
 import { auth } from '../../firebase';
 import axios from 'axios';
 import './index.css';
@@ -24,17 +24,29 @@ function RegisterView() {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
+      // Send email verification
+      try {
+        await sendEmailVerification(user);
+        console.log('Verification email sent successfully.');
+        setErrorMessage('A verification email has been sent. Please check your inbox and verify your email.');
+      } catch (emailError) {
+        console.error('Error sending verification email:', emailError);
+        setErrorMessage('Failed to send verification email. Please try again later.');
+      }
+
       // Send user details to your backend
-      await axios.post('http://localhost:8080/users', {
-        uid: user.uid,
-        email: user.email,
-        displayname: user.displayName,
-        provider: user.providerData[0].providerId, // İlk sağlayıcıyı alıyoruz (genellikle tek bir sağlayıcı olur)
-      });
-
-      await sendEmailVerification(user);
-
-      setErrorMessage('A verification email has been sent. Please check your inbox and verify your email.');
+      try {
+        await axios.post('http://localhost:8080/users', {
+          uid: user.uid,
+          email: user.email,
+          displayname: `${firstName} ${lastName}`,
+          provider: 'Email/Password',
+        });
+      } catch (axiosError) {
+        console.error('Error saving to the database:', axiosError);
+        setErrorMessage('An error occurred while saving to the database. Please try again.');
+        return;
+      }
 
       // Log out the user after registration to ensure they verify their email
       await auth.signOut();
@@ -59,14 +71,14 @@ function RegisterView() {
           <input
             type="text"
             placeholder="First Name"
-            value={"Melik"}
+            value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             className="register-input"
           />
           <input
             type="text"
             placeholder="Last Name"
-            value={"SAV"}
+            value={lastName}
             onChange={(e) => setLastName(e.target.value)}
             className="register-input"
           />
