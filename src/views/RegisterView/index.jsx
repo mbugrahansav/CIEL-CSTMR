@@ -37,9 +37,8 @@ function RegisterView() {
       // Send user details to your backend
       try {
         await axios.post('http://localhost:8080/users', {
-          uid: user.uid,
-          email: user.email,
-          displayname: `${firstName} ${lastName}`,
+          fullname: `${firstName} ${lastName}`, 
+          email: email,
           provider: 'Email/Password',
         });
       } catch (axiosError) {
@@ -47,6 +46,7 @@ function RegisterView() {
         setErrorMessage('An error occurred while saving to the database. Please try again.');
         return;
       }
+
 
       // Log out the user after registration to ensure they verify their email
       await auth.signOut();
