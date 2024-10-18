@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContext';
-import { signInWithEmailAndPassword, signInWithRedirect, GoogleAuthProvider, OAuthProvider } from 'firebase/auth';
+import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, OAuthProvider } from 'firebase/auth';
 import { auth } from '../../firebase';
 import axios from 'axios';
 import './index.css';
@@ -64,64 +64,56 @@ function LoginView() {
     }
   };
 
-  // Handle Google Sign-In
-const handleGoogleSignIn = async () => {
-  try {
-    const result = await signInWithRedirect(auth, googleProvider);
-    const user = result.user;
-
-    if (user) {
-      // Kullanıcıyı veritabanına kaydet
-      try {
-        await axios.post('http://localhost:8080/users', {
-          fullname: user.displayName || 'Google User',
+  const handleGoogleSignIn = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+  
+      if (user) {
+        // Extract user details
+        const userData = {
+          fullname: user.displayName, // or userName, depending on your naming convention
           email: user.email,
-          provider: 'Google',
-        });
-      } catch (axiosError) {
-        console.error('Error saving to the database:', axiosError);
-        setErrorMessage('An error occurred while saving to the database. Please try again.');
-        return;
+          provider: 'Google'
+        };
+  
+        // Send user details to your database
+        await axios.post('http://localhost:8080/users', userData); // Replace with your API endpoint
+  
+        login(); // Call login context to handle user state
+        navigate('/');
       }
-
-      login(); // Call login context to handle user state
-      navigate('/');
+    } catch (error) {
+      console.error('Google Sign-In error:', error);
+      setErrorMessage('Google Sign-In failed. Please try again.');
     }
-  } catch (error) {
-    console.error('Google Sign-In error:', error);
-    setErrorMessage('Google Sign-In failed. Please try again.');
-  }
-};
-
-// Handle Microsoft Sign-In
-const handleMicrosoftSignIn = async () => {
-  try {
-    const result = await signInWithRedirect(auth, microsoftProvider);
-    const user = result.user;
-
-    if (user) {
-      // Kullanıcıyı veritabanına kaydet
-      try {
-        await axios.post('http://localhost:8080/users', {
-          fullname: user.displayName || 'Microsoft User',
+  };
+  
+  const handleMicrosoftSignIn = async () => {
+    try {
+      const result = await signInWithPopup(auth, microsoftProvider);
+      const user = result.user;
+  
+      if (user) {
+        // Extract user details
+        const userData = {
+          fullname: user.displayName, // or userName, depending on your naming convention
           email: user.email,
-          provider: 'Microsoft',
-        });
-      } catch (axiosError) {
-        console.error('Error saving to the database:', axiosError);
-        setErrorMessage('An error occurred while saving to the database. Please try again.');
-        return;
+          provider: 'Microsoft'
+        };
+  
+        // Send user details to your database
+        await axios.post('http://localhost:8080/users', userData); // Replace with your API endpoint
+  
+        login(); // Call login context to handle user state
+        navigate('/');
       }
-
-      login(); // Call login context to handle user state
-      navigate('/');
+    } catch (error) {
+      console.error('Microsoft Sign-In error:', error);
+      setErrorMessage('Microsoft Sign-In failed. Please try again.');
     }
-  } catch (error) {
-    console.error('Microsoft Sign-In error:', error);
-    setErrorMessage('Microsoft Sign-In failed. Please try again.');
-  }
-};
-
+  };
+  
 
   return (
     <div className='login-container'>

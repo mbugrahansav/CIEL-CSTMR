@@ -24,27 +24,10 @@ function ProtectedRoute({ children }) {
 }
 
 function AppContent() {
-  const { logout, isFirstVisit, loading } = useContext(AuthContext);
+  const { isFirstVisit, loading } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
 
-
-  useEffect(() => {
-    if (location.pathname === '/login') {
-      logout();
-    }
-  }, [location, logout]);
-
-  useEffect(() => {
-    if (!loading && isFirstVisit && location.pathname !== '/landing') {
-      console.log('Navigating to LandingPage');
-      navigate('/landing');
-    }
-  }, [isFirstVisit, loading, navigate, location.pathname]);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <>
@@ -65,7 +48,7 @@ function AppContent() {
         <Route path="/qr" element={<ProtectedRoute><QRView /></ProtectedRoute>} />
         
       </Routes>
-      {location.pathname !== '/story' && location.pathname !== '/login'&& location.pathname !== '/login' && location.pathname !== '/register' && location.pathname !== '/landing'&& location.pathname !== '/forgot'  && <BottomTabNavigator />}
+      {location.pathname !== '/story' && location.pathname !== '/login' && location.pathname !== '/register' && location.pathname !== '/landing' && location.pathname !== '/forgot' && <BottomTabNavigator />}
     </>
   );
 }

@@ -1,4 +1,3 @@
-// AuthContext.js
 import React, { createContext, useState, useEffect } from 'react';
 
 const AuthContext = createContext();
@@ -8,16 +7,15 @@ function AuthProvider({ children }) {
   const [isFirstVisit, setIsFirstVisit] = useState(false);
   const [loading, setLoading] = useState(true);
 
-
-
   useEffect(() => {
-    // Geliştirme aşamasında her başlatmada localStorage'ı temizlemek için
-    if (process.env.NODE_ENV === 'development') {
+    // Avoid clearing storage if user is in the middle of sign-in redirection
+    if (process.env.NODE_ENV === 'development' && !window.location.href.includes('auth/handler')) {
       localStorage.removeItem('isAuthenticated');
       localStorage.removeItem('isFirstVisit');
       console.log('Development: isAuthenticated ve isFirstVisit temizlendi.');
     }
-    // Kullanıcının oturum durumu
+
+    // Fetch the authentication state from localStorage
     const storedAuth = localStorage.getItem('isAuthenticated');
     console.log('Stored Auth:', storedAuth);
 
@@ -27,7 +25,7 @@ function AuthProvider({ children }) {
       setIsAuthenticated(false);
     }
 
-    // Kullanıcının ilk ziyaret durumu
+    // Fetch the first visit state from localStorage
     const storedFirstVisit = localStorage.getItem('isFirstVisit');
     console.log('Stored First Visit:', storedFirstVisit);
 
