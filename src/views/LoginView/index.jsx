@@ -5,12 +5,14 @@ import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, OAuthP
 import { auth } from '../../firebase';
 import axios from 'axios';
 import './index.css';
+import logo from './ciel-logo.png';
 
 function LoginView() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const { login } = useContext(AuthContext); // AuthContext for authentication state
+  const [isFlipped, setIsFlipped] = useState(false);
   const navigate = useNavigate();
 
   // Google Sign-In Provider
@@ -38,7 +40,7 @@ function LoginView() {
       // Check if the email is verified
       if (user.emailVerified) {
         // If the email is verified, proceed with login
-        login(); // Call login context to handle user state
+        // login(); // Call login context to handle user state
         navigate('/');
       } else {
         // If the email is not verified, log out the user and show a message
@@ -64,11 +66,16 @@ function LoginView() {
     }
   };
 
+  const animateLogoFlip = () => {
+    setIsFlipped(true);
+    setTimeout(() => setIsFlipped(false), 1000); // Animasyon süresi
+  };
+
   const handleGoogleSignIn = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
-  
+
       if (user) {
         // Extract user details
         const userData = {
@@ -76,10 +83,10 @@ function LoginView() {
           email: user.email,
           provider: 'Google'
         };
-  
+
         // Send user details to your database
         await axios.post('http://localhost:8080/users', userData); // Replace with your API endpoint
-  
+
         login(); // Call login context to handle user state
         navigate('/');
       }
@@ -88,12 +95,12 @@ function LoginView() {
       setErrorMessage('Google Sign-In failed. Please try again.');
     }
   };
-  
+
   const handleMicrosoftSignIn = async () => {
     try {
       const result = await signInWithPopup(auth, microsoftProvider);
       const user = result.user;
-  
+
       if (user) {
         // Extract user details
         const userData = {
@@ -101,10 +108,10 @@ function LoginView() {
           email: user.email,
           provider: 'Microsoft'
         };
-  
+
         // Send user details to your database
         await axios.post('http://localhost:8080/users', userData); // Replace with your API endpoint
-  
+
         login(); // Call login context to handle user state
         navigate('/');
       }
@@ -113,11 +120,19 @@ function LoginView() {
       setErrorMessage('Microsoft Sign-In failed. Please try again.');
     }
   };
-  
+
 
   return (
     <div className='login-container'>
       <div className='login-box'>
+        <div className='login-logo'>
+          <img
+            src={logo}
+            alt="logo"
+            className={isFlipped ? 'flip-animation' : ''}
+            onClick={animateLogoFlip}
+          />
+        </div>
         <h2>Login</h2>
         <form onSubmit={handleLogin}>
           <input
@@ -126,6 +141,7 @@ function LoginView() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="login-input"
+            onClick={animateLogoFlip}
           />
           <input
             type="password"
@@ -133,6 +149,7 @@ function LoginView() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="login-input"
+            onClick={animateLogoFlip}
           />
           <button type="submit" className="login-button">
             Login

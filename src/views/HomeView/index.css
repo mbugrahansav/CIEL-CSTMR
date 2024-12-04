@@ -33,11 +33,26 @@
 }
 
 #ciel-cup-icon, #ciel-cup-icon-fill {
-  width: 7vh;
+  width: 5.5vh;
 }
 
 .Circular-Progress-Bar {
   width: 10vh;
+}
+
+/* Bardak ikonlarını içeren kutu */
+.Coffee-Icons {
+  display: flex;
+  /* justify-content: center;  */
+  /* align-items: center; */
+  gap: 1vh; /* Bardaklar arasındaki boşluk */
+  margin: 2vh 0;
+}
+
+/* Bardak ikonlarının görünümü */
+.coffee-icon {
+  width: 7vh;
+  height: 7vh;
 }
 
 .Coffee-Details-Box {

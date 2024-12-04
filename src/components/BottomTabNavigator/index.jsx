@@ -22,13 +22,17 @@ function Index() {
     navigate('/settings');
   };
 
+  const goToMenuPage = () => {
+    navigate('/menu');
+  }
+
   const isHomePage = location.pathname === '/';
 
   return (
     <div className='Bottom-Tab-Nav-Container'>
 
       <div className='Tab-Nav-Menu-Button-Box'>
-        <button id='Button-1' onClick={() => window.location.href='https://coffeeciel.com/menu'}>
+        <button id='Button-1' onClick={goToMenuPage}>
           <img src={menuIcon} id='menu-icon' alt='menu-icon'/>
         </button>
       </div>

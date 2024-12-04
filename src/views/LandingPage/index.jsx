@@ -20,6 +20,7 @@ function LandingPage() {
   };
 
   const goToRegister = () => {
+    markFirstVisitDone();
     navigate('/register');
   };
 

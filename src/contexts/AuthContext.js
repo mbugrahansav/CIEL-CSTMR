@@ -31,6 +31,7 @@ function AuthProvider({ children }) {
 
     if (storedFirstVisit === null) {
       setIsFirstVisit(true);
+      localStorage.setItem('isFirstVisit', 'false');
       console.log('First visit detected');
     } else {
       setIsFirstVisit(false);

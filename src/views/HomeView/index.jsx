@@ -37,9 +37,18 @@ function Index() {
   const setCoffee = async () => {
     if (coffeeCount < 4) {
       setCoffeeCount(coffeeCount + 1);
+      setEntityCount(entityCount + 1); // Her seferinde entityCount'u bir arttır
     } else if (coffeeCount === 4) {
-      setBountyCount(bountyCount + 1);
-      setCoffeeCount(0);
+      // 5'e ulaşıldığında tüm bardakları dolu göster
+      setCoffeeCount(5);
+      setEntityCount(entityCount + 1);
+  
+      // Tüm bardakları dolu olarak gösterdikten sonra sıfırlama için kısa bir gecikme
+      setTimeout(() => {
+        setCoffeeCount(0); // Kahve bardaklarını sıfırla
+        setEntityCount(0); // ProgressBar sıfırlama
+        setBountyCount(bountyCount + 1); // Kazanılan kahve sayısını arttır
+      }, 500); // 500ms sonra sıfırla (görsel olarak dolduktan sonra sıfırlanması için)
     }
 
     const coffeeOptions = [1201, 1202, 1203];
@@ -91,17 +100,30 @@ function Index() {
       <div className='Loyalty-Box'>
         <div className='Circular-Progress-Bar'>
           <CircularProgressbar
-            value={(entityCount)} // Entity count'un modunu gösterme
+            value={(entityCount / 5) * 100} // Entity count'un modunu gösterme
             text={(entityCount % 5).toString()} // Entity count'un modunu yazma
             styles={buildStyles({
               textColor: 'white',
-              pathColor: '#323235'
+              pathColor: 'white',
+              trailColor: '#323235'
             })}
           />
         </div>
-        <img src={icon} id='ciel-cup-icon' alt="icon" />
-        <img src={iconFill} id='ciel-cup-icon-fill' alt="icon-fill" />
+        {/* <img src={icon} id='ciel-cup-icon' alt="icon" />
+        <img src={iconFill} id='ciel-cup-icon-fill' alt="icon-fill" /> */}
+        <div className='Coffee-Icons'>
+        {[...Array(5)].map((_, index) => (
+          <img
+          key={index}
+          src={coffeeCount > index ? iconFill : icon} // coffeeCount'a göre dolu veya boş bardak göster
+          className="coffee-icon"
+          alt="coffee cup"
+        />
+        ))}
       </div>
+      </div>
+
+      
 
       <div className='Coffee-Details-Box'>
         <button onClick={setCoffee}>Set Coffee</button>
